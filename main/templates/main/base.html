@@ -9,7 +9,13 @@
         {% block extra_style %}{% endblock  %}
     </head>
     <body>
-        {% block header %}{% endblock  %}
+        {% block header %}
+        <header class="header">
+            <div class="header__title">
+                {% block header_title %}{% endblock  %}
+            </div>
+        </header>
+        {% endblock  %}
         {% block content %}{% endblock  %}
         {% block footer %}{% endblock  %}
         {% block extra_js %}{% endblock  %}

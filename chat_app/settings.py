@@ -123,3 +123,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "main.user"  # User のモデルがどれかを指定する
+
+LOGIN_URL = "login"  # ログインページを指定
+LOGIN_REDIRECT_URL = "friends"  # ログイン後に遷移するページを指定
+LOGOUT_REDIRECT_URL = "index"  # ログアウト後に遷移するページを指定（ログアウトはあとで実装する）

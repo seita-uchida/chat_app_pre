@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>チャットアプリ</title>
         <link rel="stylesheet" href="{% static 'main/css/base.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         {% block extra_style %}{% endblock  %}
     </head>
     <body>
@@ -17,7 +18,22 @@
         </header>
         {% endblock  %}
         {% block content %}{% endblock  %}
-        {% block footer %}{% endblock  %}
+        {% block footer %}
+        <footer class="footer">
+            <div class="footer__item">
+                <a href="{% url 'friends' %}" class="footer__link">
+                    <div class="footer__icon"><i class="fas fa-user-friends"></i></div>
+                    <div class="footer__label">友達</div>
+                </a>
+            </div>
+            <div class="footer__item">
+                <a href="{% url 'settings' %}" class="footer__link">
+                    <div class="footer__icon"><i class="fas fa-cog"></i></div>
+                    <div class="footer__label">設定</div>
+                </a>
+            </div>
+        </footer>
+        {% endblock  %}
         {% block extra_js %}{% endblock  %}
     </body>
 </html>

@@ -13,7 +13,7 @@
     <ul class="friends-list">
         {% for friend in friends %}
         <li class="friends-list__item">
-            <a href="" class="friends-list__link">
+            <a href="{% url 'talk_room' friend.id %}" class="friends-list__link">
                 <div class="friends-list__username">{{ friend.username }}</div>
             </a>
         </li>

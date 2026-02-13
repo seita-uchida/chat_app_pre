@@ -1,0 +1,32 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load my_filters %}
+
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'main/css/talk_room.css' %}">
+{% endblock %}
+
+{% block header_title %}{{ friend.username }}{% endblock %}
+
+{% block content %}
+<div class="talk-room">
+    {# 過去のチャットの表示部分 #}
+    <ul class="chatboard">
+        {# チャットを古い順に for 文で表示します #}
+        {% for talk in talks %}
+        <li class="chatboard__item">
+            <p class="chatboard__username">
+                ＞{{ talk.sender.username|upper }}
+            </p>
+            <p class="chatboard__message">{{ talk.message|censor:"に"|censor:"バカ" }}</p>
+            <p class="chatboard__time">
+                {{ talk.time|date:"m/d" }}<br>
+                {{ talk.time|date:"H:i" }}
+            </p>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

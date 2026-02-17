@@ -55,10 +55,10 @@ def settings(request):
     return render(request, "main/settings.html")
 
 @login_required
-def talk_room(request, user_id):
+def talk_room(request, friend_id):
     # get_object_or_404 は、第一引数にモデル名、その後任意の数のキーワードを受け取り、
     # もし合致するデータが存在するならそのデータを、存在しないなら 404 エラーを発生させます。
-    friend = get_object_or_404(User, id=user_id)
+    friend = get_object_or_404(User, id=friend_id)
 
     # 自分が送信者で上の friend が受信者であるデータ、または friend が送信者で friend が受信者であるデータをすべて取得します。
     talks = Talk.objects.filter(

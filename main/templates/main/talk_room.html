@@ -8,6 +8,11 @@
 
 {% block header_title %}{{ friend.username }}{% endblock %}
 
+{% block talk_room %}
+<a href="{% url 'friends' %}" class="back-button"><i class="fas fa-angle-left"></i></a>
+<a href="" class="reload-button">更新</a>
+{% endblock %}
+
 {% block content %}
 <div class="talk-room">
     {# 過去のチャットの表示部分 #}
@@ -26,6 +31,13 @@
         </li>
         {% endfor %}
     </ul>
+
+    <form action="{% url 'talk_room' friend.id %}" method="POST" class="message-form">
+        {% csrf_token %}
+        {{ form.message }}
+        <button type="submit" class="message-form__submit">送信</button>
+    </form>
+    
 </div>
 {% endblock %}
 

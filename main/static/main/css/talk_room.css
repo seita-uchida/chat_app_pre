@@ -95,3 +95,11 @@
     line-height: 1;
     color: #888;
 }
+
+.chatboard__icon {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #003;
+    border-radius: 50%;
+    object-fit: cover;
+}

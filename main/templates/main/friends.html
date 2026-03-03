@@ -14,6 +14,7 @@
         {% for friend in friends %}
         <li class="friends-list__item">
             <a href="{% url 'talk_room' friend.id %}" class="friends-list__link">
+                <img src="{% if friend.icon %}{{ friend.icon.url }}{% else %}{% static 'main/img/default-icon.png' %}{% endif %}" class="friends-list__icon">
                 <div class="friends-list__username">{{ friend.username }}</div>
             </a>
         </li>

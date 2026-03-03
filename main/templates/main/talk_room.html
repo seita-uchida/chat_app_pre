@@ -20,8 +20,9 @@
         {# チャットを古い順に for 文で表示します #}
         {% for talk in talks %}
         <li class="chatboard__item">
+            <img src="{% if talk.sender.icon %}{{ talk.sender.icon.url }}{% else %}{% static 'main/img/default-icon.png' %}{% endif %}" class="chatboard__icon">
             <p class="chatboard__username">
-                ＞{{ talk.sender.username|upper }}
+                {{ talk.sender.username|upper }}
             </p>
             <p class="chatboard__message">{{ talk.message|censor:"に"|censor:"バカ" }}</p>
             <p class="chatboard__time">

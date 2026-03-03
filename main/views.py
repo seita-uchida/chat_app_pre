@@ -11,6 +11,7 @@ from .forms import (
     TalkForm,
     UsernameChangeForm,
     EmailChangeForm,
+    IconChangeForm,
 )
 from .models import User, Talk
 
@@ -155,3 +156,26 @@ class PasswordChangeDoneView(auth_views.PasswordChangeDoneView):
 
 class LogoutView(auth_views.LogoutView):
     pass
+
+
+@login_required
+def icon_change(request):
+    if request.method == "GET":
+        form = IconChangeForm(instance=request.user)
+    elif request.method == "POST":
+        form = IconChangeForm(
+            request.POST, request.FILES, instance=request.user
+        )
+        if form.is_valid():
+            form.save()
+            return redirect("icon_change_done")
+
+    context = {
+        "form": form,
+    }
+    return render(request, "main/icon_change.html", context)
+
+
+@login_required
+def icon_change_done(request):
+    return render(request, "main/icon_change_done.html")

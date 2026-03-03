@@ -31,3 +31,9 @@ class EmailChangeForm(forms.ModelForm):
         fields = ("email",)
         labels = {"email": "新しいメールアドレス"}
         help_texts = {"email": "aaa"}
+
+class IconChangeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ("icon",)
+        labels = {"icon": "アイコン画像"}

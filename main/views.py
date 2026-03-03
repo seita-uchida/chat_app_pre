@@ -3,8 +3,15 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 
-from .forms import SignUpForm, LoginForm, TalkForm
+from .forms import (
+    SignUpForm,
+    LoginForm,
+    TalkForm,
+    UsernameChangeForm,
+    EmailChangeForm,
+)
 from .models import User, Talk
 
 def index(request):
@@ -86,3 +93,65 @@ def talk_room(request, friend_id):
         "talks": talks,
     }
     return render(request, "main/talk_room.html", context)
+
+
+@login_required
+def username_change(request):
+    if request.method == "GET":
+        # instance を指定することで、指定したインスタンスのデータにアクセスできます
+        form = UsernameChangeForm(instance=request.user)
+    elif request.method == "POST":
+        form = UsernameChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            # 保存後、完了ページに遷移します
+            return redirect("username_change_done")
+
+    context = {"form": form}
+    return render(request, "main/username_change.html", context)
+
+
+@login_required
+def username_change_done(request):
+    return render(request, "main/username_change_done.html")
+
+
+
+@login_required
+def email_change(request):
+    if request.method == "GET":
+        form = EmailChangeForm(instance=request.user)
+    elif request.method == "POST":
+        form = EmailChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("email_change_done")
+
+    context = {"form": form}
+    return render(request, "main/email_change.html", context)
+
+
+@login_required
+def email_change_done(request):
+    return render(request, "main/email_change_done.html")
+
+
+class PasswordChangeView(auth_views.PasswordChangeView):
+    """Django 組み込みパスワード変更ビュー
+
+    template_name : 表示するテンプレート
+    success_url : 処理が成功した時のリダイレクト先
+    """
+
+    template_name = "main/password_change.html"
+    success_url = reverse_lazy("password_change_done")
+
+
+class PasswordChangeDoneView(auth_views.PasswordChangeDoneView):
+    """Django 標準パスワード変更ビュー"""
+
+    template_name = "main/password_change_done.html"
+
+
+class LogoutView(auth_views.LogoutView):
+    pass
